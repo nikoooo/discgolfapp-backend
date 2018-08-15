@@ -1,0 +1,28 @@
+{
+  "name": "discgolfapp-backend",
+  "version": "1.0.0",
+  "description": "backend packages",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nikoooo/shoppinglistbackend.git"
+  },
+  "author": "nikoooo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nikoooo/shoppinglistbackend/issues"
+  },
+  "homepage": "https://github.com/nikoooo/shoppinglistbackend#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "mongoose": "^5.1.7"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.5"
+  }
+}
