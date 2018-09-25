@@ -1,4 +1,4 @@
-const discRoutes = require('./discRoutes.ts');
+const discRoutes = require('./discRoutes');
 
 module.exports = {
     registerDiscRoutes: function (router) {

@@ -2,7 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const routeHandler = require('./app/routes/');
+const routeHandler = require('./src/routes/');
 /* TypeOrm */
 import "reflect-metadata";
 import { createConnection } from "typeorm";
@@ -32,4 +32,4 @@ createConnection().then(async _connection => {
     console.log(`Listening to port ${port}...`);
   });
 
-}).catch(error => console.log(error));
+}).catch(error => { console.log(error); });
