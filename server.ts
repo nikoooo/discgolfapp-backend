@@ -1,35 +1,29 @@
-/* Express */
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const routeHandler = require('./src/routes/');
 /* TypeOrm */
 import "reflect-metadata";
-import { createConnection } from "typeorm";
+import { createConnection, useContainer } from "typeorm";
+import { createExpressServer } from "routing-controllers";
+import { Container } from "typedi";
+import { DiscController } from "./src/controllers/DiscController";
+
+useContainer(Container);
 
 /** Initiate db connection **/
 createConnection().then(async _connection => {
 
   const port = process.env.PORT || 8000; // set our port
 
-  /* Init express app */
-  const app = express();
-  app.use(cors());
-  app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(bodyParser.json());
+  console.log("Connected. Now run express app");
+    const app = createExpressServer({
+        controllers: [
+          DiscController
+        ],
+        cors: true,
+    });
 
-  // Router
-  var router = express.Router()
-  router.use(function (req, res, next) { // middleware to use for all requests
-    console.log('Incomming call...');
-    next();
-  });
-  routeHandler.registerDiscRoutes(router);
-  app.use('/api', router);
-
-  /* Listen to port */
-  app.listen(port, () => {
-    console.log(`Listening to port ${port}...`);
-  });
+    app.listen(
+      port,
+      () => {
+        console.log("Server is up and running on port 8000. Now send requests to check if everything works.");
+      });
 
 }).catch(error => { console.log(error); });
