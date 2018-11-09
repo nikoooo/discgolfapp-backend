@@ -10,20 +10,20 @@ useContainer(Container);
 /** Initiate db connection **/
 createConnection().then(async _connection => {
 
-  const port = process.env.PORT || 8000; // set our port
+  const port = process.env.PORT || 8001; // set our port
 
   console.log("Connected. Now run express app");
     const app = createExpressServer({
         controllers: [
           DiscController
         ],
-        cors: true,
+        cors: false,
     });
 
     app.listen(
       port,
       () => {
-        console.log("Server is up and running on port 8000. Now send requests to check if everything works.");
+        console.log("Listening on port 8001...");
       });
 
 }).catch(error => { console.log(error); });
