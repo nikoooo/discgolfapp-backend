@@ -18,15 +18,18 @@ createConnection().then(async _connection => {
         controllers: [
           DiscController
         ],
-        cors: false,
+        cors: {
+          origin: '*',
+          optionsSuccessStatus: 200 
+        },
     });
 
     app.listen(
       port,
       () => {
         console.log("Listening on port 8001...");
-        const dbMigrator = new DatabaseMigrator();
-        /*dbMigrator.migrate();
+        /*dconst dbMigrator = new DatabaseMigrator();
+        bMigrator.migrate();
         console.log("Migration done...");*/
       });
 
