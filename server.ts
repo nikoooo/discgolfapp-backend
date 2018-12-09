@@ -1,35 +1,33 @@
-/* Express */
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const routeHandler = require('./src/routes/');
 /* TypeOrm */
 import "reflect-metadata";
-import { createConnection } from "typeorm";
+import { createConnection, useContainer } from "typeorm";
+import { createExpressServer } from "routing-controllers";
+import { Container } from "typedi";
+import { DiscController } from "./src/controllers/DiscController";
+import { DatabaseMigrator } from "./data/databaseMigrator";
 
-/** Initiate db connection **/
+useContainer(Container);
+
+/** Initiate db connection using ormconfig.json **/
 createConnection().then(async _connection => {
 
-  const port = process.env.PORT || 8000; // set our port
+  const port = process.env.PORT || 8001; // set our port
 
-  /* Init express app */
-  const app = express();
-  app.use(cors());
-  app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(bodyParser.json());
+  console.log("Connected. Now running express app");
+    const app = createExpressServer({
+        controllers: [
+          DiscController
+        ],
+        cors: false,
+    });
 
-  // Router
-  var router = express.Router()
-  router.use(function (req, res, next) { // middleware to use for all requests
-    console.log('Incomming call...');
-    next();
-  });
-  routeHandler.registerDiscRoutes(router);
-  app.use('/api', router);
-
-  /* Listen to port */
-  app.listen(port, () => {
-    console.log(`Listening to port ${port}...`);
-  });
+    app.listen(
+      port,
+      () => {
+        console.log("Listening on port 8001...");
+        const dbMigrator = new DatabaseMigrator();
+        /*dbMigrator.migrate();
+        console.log("Migration done...");*/
+      });
 
 }).catch(error => { console.log(error); });
