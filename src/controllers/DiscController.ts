@@ -1,23 +1,20 @@
-import { JsonController, Get } from "routing-controllers";
+import { Get, JsonController } from "routing-controllers";
+import { getConnectionManager, Repository } from "typeorm";
 import { EntityFromParam } from "typeorm-routing-controllers-extensions";
 import { Disc } from "../entity/Disc";
-import { Repository, getConnectionManager } from "typeorm";
-import { Manufacturer } from "../entity/Manufacturer";
 
 @JsonController()
 export class DiscController {
     private discRepository: Repository<Disc>;
-    private manufacturerRepository: Repository<Manufacturer>;
 
     constructor() {
         this.discRepository = getConnectionManager().get().getRepository(Disc);
-        this.manufacturerRepository = getConnectionManager().get().getRepository(Manufacturer);
     }
 
     @Get("/discs")
     async getAll() {
         return await this.discRepository
-            .find({ relations: ["manufacturerFK"] })
+            .find() // { relations: ["FK?eller"] })
             .catch(e => { throw new Error(e); });
     }
 

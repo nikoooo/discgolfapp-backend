@@ -36,12 +36,12 @@ export interface IDisc {
 
     visuals?: Visual[];
 }
- 
+
 
 @Entity()
 export class Disc implements IDisc {
 
-    constructor(disc?: IDisc){
+    constructor(disc?: IDisc) {
         if (disc) {
             this.id = disc.id;
             this.source = disc.source;
@@ -84,25 +84,43 @@ export class Disc implements IDisc {
     @Column("varchar")
     imgPath: string;
 
-    @ManyToOne(type => DiscType, discType => discType.discs, { cascade: ["insert", "update"] })
+    @ManyToOne(type => DiscType, discType => discType.discs, {
+        cascade: ["insert", "update"],
+        eager: true
+    })
     discType: DiscType;
 
-    @ManyToOne(type => Plastic, plastic => plastic.discs, { cascade: ["insert", "update"] })
+    @ManyToOne(type => Plastic, plastic => plastic.discs, {
+        cascade: ["insert", "update"],
+        eager: true
+    })
     @JoinTable()
     plastic: Plastic;
 
-    @ManyToOne(type => Manufacturer, manufacturer => manufacturer.discs, { cascade: ["insert", "update"] })
+    @ManyToOne(type => Manufacturer, manufacturer => manufacturer.discs, {
+        cascade: ["insert", "update"],
+        eager: true
+    })
     manufacturer: Manufacturer;
 
-    @ManyToMany(type => PlasticFeature, plasticFeature => plasticFeature.discs, { cascade: ["insert", "update"] })
+    @ManyToMany(type => PlasticFeature, plasticFeature => plasticFeature.discs, {
+        cascade: ["insert", "update"],
+        eager: true
+    })
     @JoinTable()
     plasticFeatures: PlasticFeature[];
 
-    @ManyToMany(type => Tag, plastic => plastic.discs, { cascade: ["insert", "update"] })
+    @ManyToMany(type => Tag, plastic => plastic.discs, {
+        cascade: ["insert", "update"],
+        eager: true
+    })
     @JoinTable()
     tags: Tag[];
 
-    @ManyToMany(type => Visual, visual => visual.discs, { cascade: ["insert", "update"] })
+    @ManyToMany(type => Visual, visual => visual.discs, {
+        cascade: ["insert", "update"],
+        eager: true
+    })
     @JoinTable()
     visuals: Visual[];
 }

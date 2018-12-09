@@ -31,6 +31,8 @@ export class Plastic implements IPlastic {
     @OneToMany(type => Disc, disc => disc.plastic)
     discs: Disc[];
 
-    @ManyToOne(type => Manufacturer, manufacturer => manufacturer.plastics)
+    @ManyToOne(type => Manufacturer, manufacturer => manufacturer.plastics, {
+        eager: true
+    })
     manufacturer: Manufacturer;
 }
