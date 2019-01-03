@@ -1,14 +1,15 @@
-import { Get, JsonController } from "routing-controllers";
-import { getConnectionManager, Repository } from "typeorm";
-import { EntityFromParam } from "typeorm-routing-controllers-extensions";
+import { Get, JsonController, Param } from "routing-controllers";
+import { getConnectionManager } from "typeorm";
+import { EntityFromQuery } from "typeorm-routing-controllers-extensions";
 import { Disc } from "../entity/Disc";
+import { DiscRepository } from "../repositories/DiscRepository";
 
 @JsonController()
 export class DiscController {
-    private discRepository: Repository<Disc>;
+    private discRepository: DiscRepository;
 
     constructor() {
-        this.discRepository = getConnectionManager().get().getRepository(Disc);
+        this.discRepository = getConnectionManager().get().getCustomRepository(DiscRepository);
     }
 
     @Get("/discs")
@@ -19,8 +20,13 @@ export class DiscController {
     }
 
     @Get("/discs/:id")
-    get(@EntityFromParam("id") disc: Disc): Disc {
+    get(@EntityFromQuery("id") disc: Disc): Disc {
         return disc;
+    }
+
+    @Get("/discs/model/:model")
+    async findByModel(@Param("model") model: string): Promise<Disc[]> {
+        return await this.discRepository.findByModel(model);
     }
 
 }
