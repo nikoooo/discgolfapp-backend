@@ -1,29 +1,32 @@
-import { JsonController, Get } from "routing-controllers";
-import { EntityFromParam } from "typeorm-routing-controllers-extensions";
+import { Get, JsonController, Param } from "routing-controllers";
+import { getConnectionManager } from "typeorm";
+import { EntityFromQuery } from "typeorm-routing-controllers-extensions";
 import { Disc } from "../entity/Disc";
-import { Repository, getConnectionManager } from "typeorm";
-import { Manufacturer } from "../entity/Manufacturer";
+import { DiscRepository } from "../repositories/DiscRepository";
 
 @JsonController()
 export class DiscController {
-    private discRepository: Repository<Disc>;
-    private manufacturerRepository: Repository<Manufacturer>;
+    private discRepository: DiscRepository;
 
     constructor() {
-        this.discRepository = getConnectionManager().get().getRepository(Disc);
-        this.manufacturerRepository = getConnectionManager().get().getRepository(Manufacturer);
+        this.discRepository = getConnectionManager().get().getCustomRepository(DiscRepository);
     }
 
     @Get("/discs")
     async getAll() {
         return await this.discRepository
-            .find({ relations: ["manufacturerFK"] })
+            .find() // { relations: ["FK?eller"] })
             .catch(e => { throw new Error(e); });
     }
 
     @Get("/discs/:id")
-    get(@EntityFromParam("id") disc: Disc): Disc {
+    get(@EntityFromQuery("id") disc: Disc): Disc {
         return disc;
+    }
+
+    @Get("/discs/model/:model")
+    async findByModel(@Param("model") model: string): Promise<Disc[]> {
+        return await this.discRepository.findByModel(model);
     }
 
 }

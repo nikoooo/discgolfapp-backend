@@ -5,6 +5,12 @@ import { createExpressServer } from "routing-controllers";
 import { Container } from "typedi";
 import { DiscController } from "./src/controllers/DiscController";
 import { DatabaseMigrator } from "./data/databaseMigrator";
+import { DiscTypeController } from "./src/controllers/DiscTypeController";
+import { ManufacturerController } from "./src/controllers/ManufacturerController";
+import { PlasticController } from "./src/controllers/PlasticController";
+import { PlasticFeatureController } from "./src/controllers/PlasticFeatureController";
+import { TagController } from "./src/controllers/TagController";
+import { VisualController } from "./src/controllers/VisualController";
 
 useContainer(Container);
 
@@ -16,17 +22,26 @@ createConnection().then(async _connection => {
   console.log("Connected. Now running express app");
     const app = createExpressServer({
         controllers: [
-          DiscController
+          DiscController,
+          DiscTypeController,
+          ManufacturerController,
+          PlasticController,
+          PlasticFeatureController,
+          TagController,
+          VisualController
         ],
-        cors: false,
+        cors: {
+          origin: '*',
+          optionsSuccessStatus: 200 
+        },
     });
 
     app.listen(
       port,
       () => {
         console.log("Listening on port 8001...");
-        const dbMigrator = new DatabaseMigrator();
-        /*dbMigrator.migrate();
+        /*const dbMigrator = new DatabaseMigrator();
+        dbMigrator.migrate();
         console.log("Migration done...");*/
       });
 

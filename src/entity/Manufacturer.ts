@@ -31,7 +31,8 @@ export class Manufacturer implements IManufacturer {
     @OneToMany(type => Disc, disc => disc.manufacturer)
     discs: Disc[];
 
-    @OneToMany(type => Plastic, plastic => plastic.manufacturer, { cascade: ["insert", "update"] })
-
+    @OneToMany(type => Plastic, plastic => plastic.manufacturer, {
+        cascade: ["insert", "update"]
+    })
     plastics: Plastic[];
 }
