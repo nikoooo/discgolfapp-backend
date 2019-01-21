@@ -40,8 +40,8 @@ createConnection().then(async _connection => {
       port,
       () => {
         console.log("Listening on port 8001...");
-        /*dconst dbMigrator = new DatabaseMigrator();
-        bMigrator.migrate();
+        /*const dbMigrator = new DatabaseMigrator();
+        dbMigrator.migrate();
         console.log("Migration done...");*/
       });
 
