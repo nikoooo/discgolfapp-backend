@@ -1,10 +1,9 @@
 /* TypeOrm */
 import "reflect-metadata";
-import { createConnection, useContainer } from "typeorm";
 import { createExpressServer } from "routing-controllers";
 import { Container } from "typedi";
+import { createConnection, useContainer } from "typeorm";
 import { DiscController } from "./src/controllers/DiscController";
-import { DatabaseMigrator } from "./data/databaseMigrator";
 import { DiscTypeController } from "./src/controllers/DiscTypeController";
 import { ManufacturerController } from "./src/controllers/ManufacturerController";
 import { PlasticController } from "./src/controllers/PlasticController";
