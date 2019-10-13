@@ -3,7 +3,7 @@
     "host": "localhost",
     "port": 3306,
     "username": "discgolfapp-backend",
-    "password": "password",
+    "password": "backend-password",
     "database": "discgolf",
     "synchronize": true,
     "logging": false,
