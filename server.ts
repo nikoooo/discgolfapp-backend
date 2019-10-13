@@ -10,6 +10,7 @@ import { PlasticController } from "./src/controllers/PlasticController";
 import { PlasticFeatureController } from "./src/controllers/PlasticFeatureController";
 import { TagController } from "./src/controllers/TagController";
 import { VisualController } from "./src/controllers/VisualController";
+// import { DatabaseMigrator } from "./data/databaseMigrator";
 
 useContainer(Container);
 
