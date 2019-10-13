@@ -11,7 +11,7 @@ import { DiscRepository } from "../src/repositories/DiscRepository";
 import { DiscTypeRepository } from "../src/repositories/DiscTypeRepository";
 import { ManufacturerRepository } from "../src/repositories/ManufacturerRepository";
 import { PlasticRepository } from "../src/repositories/PlasticRepository";
-import { PlasticFeatureRepository } from "../src/repositories/plasticFeatureRepository";
+import { PlasticFeatureRepository } from "../src/repositories/PlasticFeatureRepository";
 import { TagRepository } from "../src/repositories/TagRepository";
 import { VisualRepository } from "../src/repositories/VisualRepository";
 
