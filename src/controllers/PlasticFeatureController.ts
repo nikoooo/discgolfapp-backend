@@ -1,14 +1,8 @@
-import {
-    Body,
-    Get,
-    JsonController,
-    Param,
-    Post
-} from 'routing-controllers';
+import { Body, Get, JsonController, Param, Post } from 'routing-controllers';
+import { getConnectionManager } from 'typeorm';
+import { EntityFromParam } from 'typeorm-routing-controllers-extensions';
 import { PlasticFeature } from '../entity/PlasticFeature';
 import { PlasticFeatureRepository } from '../repositories/PlasticFeatureRepository';
-import { EntityFromQuery } from 'typeorm-routing-controllers-extensions';
-import { getConnectionManager } from 'typeorm';
 
 @JsonController()
 export class PlasticFeatureController {
@@ -26,7 +20,7 @@ export class PlasticFeatureController {
   }
 
   @Get("/plasticFeatures/:id")
-  getOne(@EntityFromQuery("id") disc: PlasticFeature): PlasticFeature {
+  getOne(@EntityFromParam("id") disc: PlasticFeature): PlasticFeature {
     return disc;
   }
 

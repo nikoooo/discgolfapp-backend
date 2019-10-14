@@ -1,6 +1,6 @@
 import { Get, JsonController, Param } from "routing-controllers";
 import { getConnectionManager } from "typeorm";
-import { EntityFromQuery } from "typeorm-routing-controllers-extensions";
+import { EntityFromParam } from "typeorm-routing-controllers-extensions";
 import { Disc } from "../entity/Disc";
 import { DiscRepository } from "../repositories/DiscRepository";
 
@@ -27,13 +27,13 @@ export class DiscController {
    * @param disc 
    */
   @Get("/discs/:id")
-  get(@EntityFromQuery("id") disc: Disc): Disc {
+  getOne(@EntityFromParam("id") disc: Disc): Disc {
     return disc;
   }
 
   @Get("/discs/model/:model")
   async findByModel(@Param("model") model: string): Promise<Disc[]> {
-    return await this.discRepository.findByModel(model);
+    return await this.discRepository.findByModel(model)
+      .catch(e => { throw new Error(e); });
   }
-
 }

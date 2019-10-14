@@ -1,14 +1,8 @@
-import {
-  Body,
-  Get,
-  JsonController,
-  Param,
-  Post
-} from 'routing-controllers';
+import { Body, Get, JsonController, Param, Post } from 'routing-controllers';
+import { getConnectionManager } from 'typeorm';
+import { EntityFromParam } from 'typeorm-routing-controllers-extensions';
 import { Visual } from '../entity/Visual';
 import { VisualRepository } from '../repositories/VisualRepository';
-import { EntityFromQuery } from 'typeorm-routing-controllers-extensions';
-import { getConnectionManager } from 'typeorm';
 
 @JsonController()
 export class VisualController {
@@ -26,7 +20,7 @@ export class VisualController {
   }
 
   @Get("/visuals/:id")
-  getOne(@EntityFromQuery("id") disc: Visual): Visual {
+  getOne(@EntityFromParam("id") disc: Visual): Visual {
     return disc;
   }
 

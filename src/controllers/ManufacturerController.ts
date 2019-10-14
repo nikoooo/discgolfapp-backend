@@ -1,14 +1,8 @@
-import {
-  Body,
-  Get,
-  JsonController,
-  Param,
-  Post
-} from 'routing-controllers';
+import { Body, Get, JsonController, Param, Post } from 'routing-controllers';
+import { getConnectionManager } from 'typeorm';
+import { EntityFromParam } from 'typeorm-routing-controllers-extensions';
 import { Manufacturer } from '../entity/Manufacturer';
 import { ManufacturerRepository } from '../repositories/ManufacturerRepository';
-import { EntityFromQuery } from 'typeorm-routing-controllers-extensions';
-import { getConnectionManager } from 'typeorm';
 
 @JsonController()
 export class ManufacturerController {
@@ -26,7 +20,7 @@ export class ManufacturerController {
   }
 
   @Get("/manufacturers/:id")
-  getOne(@EntityFromQuery("id") disc: Manufacturer): Manufacturer {
+  getOne(@EntityFromParam("id") disc: Manufacturer): Manufacturer {
     return disc;
   }
 

@@ -1,14 +1,8 @@
-import {
-  Body,
-  Get,
-  JsonController,
-  Param,
-  Post
-} from 'routing-controllers';
+import { Body, Get, JsonController, Param, Post } from 'routing-controllers';
+import { getConnectionManager } from 'typeorm';
+import { EntityFromParam } from 'typeorm-routing-controllers-extensions';
 import { Plastic } from '../entity/Plastic';
 import { PlasticRepository } from '../repositories/PlasticRepository';
-import { EntityFromQuery } from 'typeorm-routing-controllers-extensions';
-import { getConnectionManager } from 'typeorm';
 
 @JsonController()
 export class PlasticController {
@@ -26,7 +20,7 @@ export class PlasticController {
   }
 
   @Get("/plastics/:id")
-  getOne(@EntityFromQuery("id") disc: Plastic): Plastic {
+  getOne(@EntityFromParam("id") disc: Plastic): Plastic {
     return disc;
   }
 

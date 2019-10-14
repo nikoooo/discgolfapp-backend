@@ -1,14 +1,8 @@
-import {
-  Body,
-  Get,
-  JsonController,
-  Param,
-  Post
-} from 'routing-controllers';
+import { Body, Get, JsonController, Param, Post } from 'routing-controllers';
+import { getConnectionManager } from 'typeorm';
+import { EntityFromParam } from 'typeorm-routing-controllers-extensions';
 import { Tag } from '../entity/Tag';
 import { TagRepository } from '../repositories/TagRepository';
-import { EntityFromQuery } from 'typeorm-routing-controllers-extensions';
-import { getConnectionManager } from 'typeorm';
 
 @JsonController()
 export class TagController {
@@ -26,7 +20,7 @@ export class TagController {
   }
 
   @Get("/tags/:id")
-  getOne(@EntityFromQuery("id") disc: Tag): Tag {
+  getOne(@EntityFromParam("id") disc: Tag): Tag {
     return disc;
   }
 
