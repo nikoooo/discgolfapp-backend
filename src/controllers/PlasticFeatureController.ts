@@ -12,32 +12,32 @@ import { getConnectionManager } from 'typeorm';
 
 @JsonController()
 export class PlasticFeatureController {
-    private plasticFeatureRepository: PlasticFeatureRepository;
+  private plasticFeatureRepository: PlasticFeatureRepository;
 
-    constructor() {
-        this.plasticFeatureRepository = getConnectionManager().get().getCustomRepository(PlasticFeatureRepository);
-    }
+  constructor() {
+    this.plasticFeatureRepository = getConnectionManager().get().getCustomRepository(PlasticFeatureRepository);
+  }
 
-    @Get("/plasticFeatures")
-    getAll(): Promise<PlasticFeature[]> {
-        return this.plasticFeatureRepository
-            .find()
-            .catch(e => { throw new Error(e); });
-    }
+  @Get("/plasticFeatures")
+  getAll(): Promise<PlasticFeature[]> {
+    return this.plasticFeatureRepository
+      .find()
+      .catch(e => { throw new Error(e); });
+  }
 
-    @Get("/plasticFeatures/:id")
-    getOne(@EntityFromQuery("id") disc: PlasticFeature): PlasticFeature {
-        return disc;
-    }
+  @Get("/plasticFeatures/:id")
+  getOne(@EntityFromQuery("id") disc: PlasticFeature): PlasticFeature {
+    return disc;
+  }
 
-    @Get("/plasticFeatures/name/:name")
-    getByName(@Param("name") name: string): Promise<PlasticFeature[]> {
-        return this.plasticFeatureRepository.findByName(name);
-    }
+  @Get("/plasticFeatures/name/:name")
+  getByName(@Param("name") name: string): Promise<PlasticFeature[]> {
+    return this.plasticFeatureRepository.findByName(name);
+  }
 
-    @Post("plasticFeatures")
-    create(@Body() plasticFeature: PlasticFeature): Promise<PlasticFeature> {
-        return this.plasticFeatureRepository.save(plasticFeature);
-    }
+  @Post("plasticFeatures")
+  create(@Body() plasticFeature: PlasticFeature): Promise<PlasticFeature> {
+    return this.plasticFeatureRepository.save(plasticFeature);
+  }
 
 }

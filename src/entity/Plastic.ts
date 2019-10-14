@@ -3,36 +3,36 @@ import { Disc } from "./Disc";
 import { Manufacturer } from "./Manufacturer";
 
 export interface IPlastic {
-    id?: number,
-    name: string,
-    discs?: Disc[],
-    manufacturer?: Manufacturer
+  id?: number,
+  name: string,
+  discs?: Disc[],
+  manufacturer?: Manufacturer
 }
 
 @Entity()
 export class Plastic implements IPlastic {
 
-    constructor(plastic?: IPlastic) {
-        if (plastic) {
-            this.id = plastic.id;
-            this.name = plastic.name;
-            this.discs = plastic.discs;
-            this.manufacturer = plastic.manufacturer;
-        }
+  constructor(plastic?: IPlastic) {
+    if (plastic) {
+      this.id = plastic.id;
+      this.name = plastic.name;
+      this.discs = plastic.discs;
+      this.manufacturer = plastic.manufacturer;
     }
+  }
 
-    // @ts-ignore
-    @PrimaryGeneratedColumn()
-    id: number;
+  // @ts-ignore
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column({ type: "varchar" })
-    name: string;
+  @Column({ type: "varchar" })
+  name: string;
 
-    @OneToMany(type => Disc, disc => disc.plastic)
-    discs: Disc[];
+  @OneToMany(type => Disc, disc => disc.plastic)
+  discs: Disc[];
 
-    @ManyToOne(type => Manufacturer, manufacturer => manufacturer.plastics, {
-        eager: true
-    })
-    manufacturer: Manufacturer;
+  @ManyToOne(type => Manufacturer, manufacturer => manufacturer.plastics, {
+    eager: true
+  })
+  manufacturer: Manufacturer;
 }

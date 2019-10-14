@@ -8,119 +8,119 @@ import { DiscType } from "./DiscType";
 
 export interface IDisc {
 
-    id?: number;
+  id?: number;
 
-    source?: string;
+  source?: string;
 
-    model: string
+  model: string
 
-    speed: number;
+  speed: number;
 
-    glide: number;
+  glide: number;
 
-    turn: number;
+  turn: number;
 
-    fade: number;
+  fade: number;
 
-    imgPath?: string;
+  imgPath?: string;
 
-    discType: DiscType;
+  discType: DiscType;
 
-    plastic: Plastic;
+  plastic: Plastic;
 
-    manufacturer: Manufacturer;
+  manufacturer: Manufacturer;
 
-    plasticFeatures?: PlasticFeature[];
+  plasticFeatures?: PlasticFeature[];
 
-    tags?: Tag[];
+  tags?: Tag[];
 
-    visuals?: Visual[];
+  visuals?: Visual[];
 }
 
 
 @Entity()
 export class Disc implements IDisc {
 
-    constructor(disc?: IDisc) {
-        if (disc) {
-            this.id = disc.id;
-            this.source = disc.source;
-            this.model = disc.model;
-            this.speed = disc.speed;
-            this.glide = disc.glide;
-            this.turn = disc.turn;
-            this.fade = disc.fade;
-            this.imgPath = disc.imgPath;
-            this.discType = disc.discType;
-            this.plastic = disc.plastic;
-            this.manufacturer = disc.manufacturer;
-            this.plasticFeatures = disc.plasticFeatures;
-            this.tags = disc.tags;
-            this.visuals = disc.visuals;
-        }
+  constructor(disc?: IDisc) {
+    if (disc) {
+      this.id = disc.id;
+      this.source = disc.source;
+      this.model = disc.model;
+      this.speed = disc.speed;
+      this.glide = disc.glide;
+      this.turn = disc.turn;
+      this.fade = disc.fade;
+      this.imgPath = disc.imgPath;
+      this.discType = disc.discType;
+      this.plastic = disc.plastic;
+      this.manufacturer = disc.manufacturer;
+      this.plasticFeatures = disc.plasticFeatures;
+      this.tags = disc.tags;
+      this.visuals = disc.visuals;
     }
+  }
 
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column("varchar")
-    source: string;
+  @Column("varchar")
+  source: string;
 
-    @Column("varchar")
-    model: string
+  @Column("varchar")
+  model: string
 
-    @Column()
-    speed: number;
+  @Column()
+  speed: number;
 
-    @Column()
-    glide: number;
+  @Column()
+  glide: number;
 
-    @Column()
-    turn: number;
+  @Column()
+  turn: number;
 
-    @Column()
-    fade: number;
+  @Column()
+  fade: number;
 
-    @Column("varchar")
-    imgPath: string;
+  @Column("varchar")
+  imgPath: string;
 
-    @ManyToOne(type => DiscType, discType => discType.discs, {
-        cascade: ["insert", "update"],
-        eager: true
-    })
-    discType: DiscType;
+  @ManyToOne(type => DiscType, discType => discType.discs, {
+    cascade: ["insert", "update"],
+    eager: true
+  })
+  discType: DiscType;
 
-    @ManyToOne(type => Plastic, plastic => plastic.discs, {
-        cascade: ["insert", "update"],
-        eager: true
-    })
-    @JoinTable()
-    plastic: Plastic;
+  @ManyToOne(type => Plastic, plastic => plastic.discs, {
+    cascade: ["insert", "update"],
+    eager: true
+  })
+  @JoinTable()
+  plastic: Plastic;
 
-    @ManyToOne(type => Manufacturer, manufacturer => manufacturer.discs, {
-        cascade: ["insert", "update"],
-        eager: true
-    })
-    manufacturer: Manufacturer;
+  @ManyToOne(type => Manufacturer, manufacturer => manufacturer.discs, {
+    cascade: ["insert", "update"],
+    eager: true
+  })
+  manufacturer: Manufacturer;
 
-    @ManyToMany(type => PlasticFeature, plasticFeature => plasticFeature.discs, {
-        cascade: ["insert", "update"],
-        eager: true
-    })
-    @JoinTable()
-    plasticFeatures: PlasticFeature[];
+  @ManyToMany(type => PlasticFeature, plasticFeature => plasticFeature.discs, {
+    cascade: ["insert", "update"],
+    eager: true
+  })
+  @JoinTable()
+  plasticFeatures: PlasticFeature[];
 
-    @ManyToMany(type => Tag, plastic => plastic.discs, {
-        cascade: ["insert", "update"],
-        eager: true
-    })
-    @JoinTable()
-    tags: Tag[];
+  @ManyToMany(type => Tag, plastic => plastic.discs, {
+    cascade: ["insert", "update"],
+    eager: true
+  })
+  @JoinTable()
+  tags: Tag[];
 
-    @ManyToMany(type => Visual, visual => visual.discs, {
-        cascade: ["insert", "update"],
-        eager: true
-    })
-    @JoinTable()
-    visuals: Visual[];
+  @ManyToMany(type => Visual, visual => visual.discs, {
+    cascade: ["insert", "update"],
+    eager: true
+  })
+  @JoinTable()
+  visuals: Visual[];
 }
