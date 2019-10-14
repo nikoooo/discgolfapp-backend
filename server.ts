@@ -20,29 +20,29 @@ createConnection().then(async _connection => {
   const port = process.env.PORT || 8001; // set our port
 
   console.log("Connected. Now running express app");
-    const app = createExpressServer({
-        controllers: [
-          DiscController,
-          DiscTypeController,
-          ManufacturerController,
-          PlasticController,
-          PlasticFeatureController,
-          TagController,
-          VisualController
-        ],
-        cors: {
-          origin: '*',
-          optionsSuccessStatus: 200 
-        },
-    });
+  const app = createExpressServer({
+    controllers: [
+      DiscController,
+      DiscTypeController,
+      ManufacturerController,
+      PlasticController,
+      PlasticFeatureController,
+      TagController,
+      VisualController
+    ],
+    cors: {
+      origin: '*',
+      optionsSuccessStatus: 200
+    },
+  });
 
-    app.listen(
-      port,
-      () => {
-        console.log("Listening on port 8001...");
-        /*const dbMigrator = new DatabaseMigrator();
-        dbMigrator.migrate();
-        console.log("Migration done...");*/
-      });
+  app.listen(
+    port,
+    () => {
+      console.log("Listening on port 8001...");
+      /*const dbMigrator = new DatabaseMigrator();
+      dbMigrator.migrate();
+      console.log("Migration done...");*/
+    });
 
 }).catch(error => { console.log(error); });

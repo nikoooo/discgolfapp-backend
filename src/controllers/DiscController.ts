@@ -12,13 +12,20 @@ export class DiscController {
     this.discRepository = getConnectionManager().get().getCustomRepository(DiscRepository);
   }
 
+  /**
+   * Gets all discs.
+   */
   @Get("/discs")
   async getAll() {
     return await this.discRepository
       .find() // { relations: ["FK?eller"] })
       .catch(e => { throw new Error(e); });
   }
-
+  
+  /**
+   * Get specific disc.
+   * @param disc 
+   */
   @Get("/discs/:id")
   get(@EntityFromQuery("id") disc: Disc): Disc {
     return disc;
